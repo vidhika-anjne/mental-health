@@ -20,21 +20,11 @@ public class JournalEntryController {
 
     // Create a new journal entry
     @PostMapping("/add")
-    public ResponseEntity<JournalEntry> addEntry(@RequestParam Long userId,
-                                                 @RequestParam String mood,
-                                                 @RequestParam String activities,
-                                                 @RequestParam String note) {
-
-        JournalEntry entry = new JournalEntry();
-        entry.setUserId(userId);
-        entry.setMood(mood);
-        entry.setActivities(activities);
-        entry.setNote(note);
-        entry.setTimestamp(LocalDateTime.now());
-
+    public ResponseEntity<JournalEntry> addEntry(@RequestBody JournalEntry entry) {
         JournalEntry saved = journalEntryRepo.save(entry);
-        return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        return ResponseEntity.ok(saved);
     }
+
 
     // Get all journal entries for a user
     @GetMapping("/all/{userId}")
